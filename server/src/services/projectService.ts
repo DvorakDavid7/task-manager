@@ -10,6 +10,7 @@ export class ProjectService {
 
     createNewProject(user: User, name: string, description: string, startDate?: Date, endDate?: Date): void {
         const project: Project = {
+            id: null,
             name: name,
             description: description,
             startDate: startDate,
@@ -20,10 +21,12 @@ export class ProjectService {
         this.projectDao.saveProject(project)
     }
 
-    createNewTask(projectId: number, title: string, description: string, priority: Priority, dueDate: Date): void {
+    createNewTask(assignedTo: User, projectId: number, title: string, description: string, priority: Priority, dueDate: Date): void {
         const project = this.projectDao.getProject(projectId)
         const task: Task = {
+            id: null,
             title: title,
+            assignedTo: assignedTo,
             description: description,
             status: Status.CREATED,
             priority: priority,
@@ -43,4 +46,3 @@ export class ProjectService {
         return this.projectDao.getProjectsForUser(user)
     }
 }
-
